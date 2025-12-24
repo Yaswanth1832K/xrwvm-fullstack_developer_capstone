@@ -29,7 +29,10 @@ SECRET_KEY =\
 DEBUG = True
 
 ALLOWED_HOSTS=['localhost','<https://yaswant1832k-8000.theianext-0-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai>']
-CSRF_TRUSTED_ORIGINS=['<https://yaswant1832k-8000.theianext-0-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai>']
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.proxy.cognitiveclass.ai",
+]
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [],
