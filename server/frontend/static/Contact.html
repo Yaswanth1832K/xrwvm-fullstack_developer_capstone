@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us | Dealership Review App</title>
+
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            background-color: #f4f6f8;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            background-color: #0a3d62;
+            padding: 12px 0;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar ul li {
+            margin: 0 20px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding-bottom: 5px;
+        }
+
+        .navbar ul li a.active {
+            border-bottom: 3px solid #feca57;
+            font-weight: bold;
+        }
+
+        /* Page container */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #0a3d62;
+            margin-bottom: 10px;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .contact-details {
+            margin-top: 30px;
+        }
+
+        .contact-details div {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #0a3d62;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/" >Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact" class="active">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p>
+            We’d love to hear from you! Whether you have questions, feedback, or need support,
+            feel free to reach out to us using the details below.
+        </p>
+
+        <div class="contact-details">
+            <div>
+                <span class="label">Company Name:</span> AutoReview Solutions
+            </div>
+            <div>
+                <span class="label">Address:</span> 456 Innovation Drive, San Jose, CA 95134
+            </div>
+            <div>
+                <span class="label">Phone:</span> +1 (408) 555-7823
+            </div>
+            <div>
+                <span class="label">Email:</span> support@autoreviewsolutions.com
+            </div>
+            <div>
+                <span class="label">Business Hours:</span> Monday – Friday, 9:00 AM – 6:00 PM
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2025 AutoReview Solutions. All rights reserved.
+    </footer>
+
+</body>
+</html>
