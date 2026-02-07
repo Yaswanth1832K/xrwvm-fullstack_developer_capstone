@@ -5,8 +5,9 @@ A robust, full-stack web application for browsing car dealerships and posting re
 ## 🚀 Features
 
 -   **Dealerships**: Browse a list of car dealerships with filtering by state.
+-   **Search**: Smart search to find dealerships by name or city.
 -   **Details**: View detailed information about each dealership and read customer reviews.
--   **Reviews**: Authenticated users can post reviews with sentiment analysis (integrated or simulated).
+-   **Reviews**: Authenticated users can post reviews with **AI Sentiment Analysis** (Positive/Neutral/Negative).
 -   **Authentication**: Secure Login and Registration system.
 -   **Responsive Design**: Built with React for a dynamic and responsive user interface.
 

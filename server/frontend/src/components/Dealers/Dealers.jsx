@@ -8,6 +8,7 @@ const Dealers = () => {
   const [dealersList, setDealersList] = useState([]);
   // let [state, setState] = useState("")
   let [states, setStates] = useState([])
+  let [searchQuery, setSearchQuery] = useState("");
 
   // let root_url = window.location.origin
   let dealer_url = "/djangoapp/get_dealers";
@@ -22,6 +23,23 @@ const Dealers = () => {
     if (retobj.status === 200) {
       let state_dealers = Array.from(retobj.dealers)
       setDealersList(state_dealers)
+    }
+  }
+
+  const handleSearch = async (query) => {
+    setSearchQuery(query);
+    let url = dealer_url; // Default URL
+    if (query) {
+      url = dealer_url + "?name=" + query;
+    }
+
+    const res = await fetch(url, {
+      method: "GET"
+    });
+    const retobj = await res.json();
+    if (retobj.status === 200) {
+      let all_dealers = Array.from(retobj.dealers)
+      setDealersList(all_dealers)
     }
   }
 
@@ -59,6 +77,7 @@ const Dealers = () => {
           <th>Address</th>
           <th>Zip</th>
           <th>
+            <input type="text" placeholder="Search by Name/City" onChange={(e) => handleSearch(e.target.value)} style={{ marginRight: "10px", padding: "5px", borderRadius: "5px" }} />
             <select name="state" id="state" onChange={(e) => filterDealers(e.target.value)}>
               <option value="" selected disabled hidden>State</option>
               <option value="All">All States</option>
