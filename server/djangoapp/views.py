@@ -7,8 +7,8 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
 from datetime import datetime
-from .models import CarMake, CarModel
-from .restapis import get_request, analyze_review_sentiments, post_review
+from .models import CarMake, CarModel, Dealership, Review
+# from .restapis import get_request, analyze_review_sentiments, post_review
 
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
@@ -90,29 +90,24 @@ def logout_user(request):
 #Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
 def get_dealerships(request, state="All"):
     if(state == "All"):
-        endpoint = "/fetchDealers"
+        dealerships = list(Dealership.objects.values())
     else:
-        endpoint = "/fetchDealers/"+state
-    dealerships = get_request(endpoint)
+        dealerships = list(Dealership.objects.filter(state=state).values())
     return JsonResponse({"status":200,"dealers":dealerships})
 
 def get_dealer_reviews(request, dealer_id):
     # if dealer id has been provided
     if(dealer_id):
-        endpoint = "/fetchReviews/dealer/"+str(dealer_id)
-        reviews = get_request(endpoint)
-        for review_detail in reviews:
-            response = analyze_review_sentiments(review_detail['review'])
-            print(response)
-            review_detail['sentiment'] = response['sentiment']
+        reviews = list(Review.objects.filter(dealership__id=dealer_id).values())
+        # Sentiment analysis is optional for now or can be added back if external service is reliable
+        # For now, we return stored sentiment or empty
         return JsonResponse({"status":200,"reviews":reviews})
     else:
         return JsonResponse({"status":400,"message":"Bad Request"})
 
 def get_dealer_details(request, dealer_id):
     if(dealer_id):
-        endpoint = "/fetchDealer/"+str(dealer_id)
-        dealership = get_request(endpoint)
+        dealership = list(Dealership.objects.filter(id=dealer_id).values())
         return JsonResponse({"status":200,"dealer":dealership})
     else:
         return JsonResponse({"status":400,"message":"Bad Request"})
@@ -121,10 +116,24 @@ def add_review(request):
     if(request.user.is_anonymous == False):
         data = json.loads(request.body)
         try:
-            response = post_review(data)
+            # Check if dealership exists
+            dealer_id = data.get('dealership')
+            dealer = Dealership.objects.get(id=dealer_id)
+            
+            Review.objects.create(
+                dealership=dealer,
+                name=data.get('name'),
+                review=data.get('review'),
+                purchase=data.get('purchase'),
+                purchase_date=data.get('purchase_date'),
+                car_make=data.get('car_make'),
+                car_model=data.get('car_model'),
+                car_year=data.get('car_year'),
+            )
+            
             return JsonResponse({"status":200})
-        except:
-            return JsonResponse({"status":401,"message":"Error in posting review"})
+        except Exception as e:
+            return JsonResponse({"status":401,"message":f"Error in posting review: {str(e)}"})
     else:
         return JsonResponse({"status":403,"message":"Unauthorized"})
 
