@@ -24,7 +24,9 @@ const Header = () => {
   };
 
   //The default home page items are the login details panel
-  let home_page_items = <div></div>
+  let home_page_items = <div>
+    <a class="nav-link" style={{ fontSize: "larger" }} href="/login">Login</a>
+  </div>
 
   //Gets the username in the current session
   let curr_user = sessionStorage.getItem('username')
